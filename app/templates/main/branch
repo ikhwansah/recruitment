@@ -1,0 +1,145 @@
+{% extends "nav/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='js/branch.js') }}"></script>
+{% endblock %}
+
+{% block page_content %}
+<div class="main-content">
+    <div class="section__content section__content--p30">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="overview-wrap2">
+                                <h2 class="title-2">Branch List</h2>
+                                <button data-target="#addClient" data-toggle="modal" class="au-btn au-btn-icon au-btn--blue m-l-30"><i class="fa fa-plus"></i>&nbsp;<span>Add New Branch</span></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive table--no-card m-b-40">
+                        <table id="client" class="table table-striped cell-border table-earning display data-tables"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="addClient" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="largeModalLabel">Add New Branch</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <label for="name" class="control-label mb-1">Company Name</label>
+                                <input id="name" name="name" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <label for="address">Address</label>
+                                <textarea name="textarea-input" id="address" rows="9" placeholder="Enter Addres..." class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="province" class="control-label mb-1">Province</label>
+                                    <div class="col-12 col-md-9">
+                                        <select name="province" id="province" class="form-control" onchange="fillcity(this)"></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="city" class="control-label mb-1">City</label>
+                                    <div class="col-12 col-md-9">
+                                        <select name="city" id="city" class="form-control" onchange="fillkec(this)"></select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="kec" class="control-label mb-1">Kecamatan</label>
+                                    <div class="col-12 col-md-9">
+                                        <select name="kec" id="kec" class="form-control" onchange="fillkel(this)"></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="kel" class="control-label mb-1">Kelurahan</label>
+                                    <div class="col-12 col-md-9">
+                                        <select name="kel" id="kel" class="form-control" onchange="fillpostalcode(this)"></select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="postalcode" class="control-label mb-1">Postal Code</label>
+                                    <div class="col-12 col-md-9">
+                                        <select name="postalcode" id="postalcode" class="form-control"></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="rt" class="control-label mb-1">RT/RW</label>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <input id="rt" name="rt" type="text" class="form-control" placeholder="RT">
+                                            </div>
+                                            <div class="col-6">
+                                                <input id="rw" name="rw" type="text" class="form-control" placeholder="RW">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="birthdate" class="control-label mb-1">Phone Number</label>
+                                    <input maxlength="14" placeholder="Enter Phone Number" name="phonenumber" id="phonenumber" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="birthdate" class="control-label mb-1">Email</label>
+                                    <input type="email" placeholder="Enter Email" name="email" id="email" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="modal-footer">
+                    <div>
+                        <button onclick="addCl('')" id="submit-button" class="btn btn-info">
+                            <i class="fa fa-check-square"></i>&nbsp;<span>Save</span>
+                        </button>
+                    </div>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times"></i>&nbsp;<span>Cancel</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="idedit">
+{% endblock %}

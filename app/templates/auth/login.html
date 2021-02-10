@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="{{ url_for('static', filename='images/icon/favicon.png') }}" type="image/x-icon">
+    <title>Job Applicant System</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/login.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/font-awesome-5/css/fontawesome-all.min.css') }}">
+</head>
+<body class="light">
+    <div id="app">
+        <main>
+            <div id="primary" class="p-t-b-100 height-full ">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <img class="login-logo" src="{{ url_for('static', filename='images/logo/logo.png') }}">
+                        </div>
+                        <div class="col-lg-6 p-t-100 ">
+                            <div class="text-center">
+                                <img src="{{ url_for('static', filename='images/logo/jas1.png') }}">
+                              </div>
+                            <form name="login" method="POST">
+                                <div class="col-lg-12">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group has-icon"><i class="fas fa-envelope"></i>
+                                                <input type="email" class="form-control form-control-lg" id="email" name="email" placeholder="Email">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group has-icon"><i class="fas fa-user-secret"></i>
+                                                <input type="password" class="form-control form-control-lg" id="password" name="password" placeholder="Password">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <button id="btn_login" name="btn_login" type="button" class="btn btn-success btn-lg btn-block" onclick="validate()"><i class="fas fa-key"></i> Login</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+<script src="{{ url_for('static', filename='js/jquery-3.3.1.js') }}"></script>
+<script src="{{ url_for('static', filename='js/login.js') }}"></script>
+</body>
+</html>

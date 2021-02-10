@@ -1,0 +1,18 @@
+{% extends "nav/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='js/setting.js') }}"></script>
+{% endblock %}
+
+{% block page_content %}
+<div class="main-content">
+    <div class="section__content section__content--p30">
+        <div class="container-fluid1">
+        </div>
+    </div>
+</div>
+<input type="hidden" id="idedit">
+<input type="hidden" id="client" value="1">
+{% endblock %}

@@ -1,0 +1,165 @@
+{% extends "nav/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='js/jobvacancy.js') }}"></script>
+{% endblock %}
+
+{% block page_content %}
+<div class="main-content">
+    <div class="section__content section__content--p30">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="overview-wrap2">
+                                <h2 class="title-2">Vacancies List</h2>
+                                <button data-toggle="modal" data-target="#job" class="au-btn au-btn-icon au-btn--blue m-l-30"><i class="fa fa-plus"></i>&nbsp;<span id="add-job">Add New</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive table--no-card m-b-40">
+                        <table id="jobtable" class="table table-striped cell-border table-earning display data-tables"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- END MAIN CONTENT-->
+<!-- MODAL ADD-->
+<div class="modal fade" id="job" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="largeModalLabel">Job Vacancy</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="default-tab">
+                            <nav>
+                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                    <a class="nav-item nav-link active" id="nav-job-tab" data-toggle="tab" href="#nav-job" role="tab" aria-controls="nav-job" aria-selected="true">Job Details</a>
+                                    <!-- <a class="nav-item nav-link" id="nav-file-tab" data-toggle="tab" href="#nav-jobfile" role="tab" aria-controls="nav-jobfile" aria-selected="false">Attachment File</a> -->
+                                </div>
+                            </nav>
+                            <div class="tab-content pl-3 pt-2" id="nav-tabContent">
+                                <div class="tab-pane fade show active" id="nav-job" role="tabpanel" aria-labelledby="nav-job-tab">
+                                    <div class="card-body card-block">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label class="control-label mb-1">Job Title</label>
+                                                    <input id="jobposition" type="text" class="form-control" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label class="control-label mb-1">Branch</label>
+                                                    <select id="branch" class="form-control"></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label class="control-label mb-1">Division</label>
+                                                    <select id="jobdivision" class="form-control"></select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label class="control-label mb-1">Job type</label>
+                                                    <select id="jobtype" class="form-control"></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label class="control-label mb-1">Salary</label>
+                                                    <input id="salary" type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label class="control-label mb-1">Application date</label>
+                                                    <input id="applicationdate" type="date" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label class="control-label mb-1">Experience</label>
+                                                    <select id="experience_id" class="form-control"></select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <label>Description</label>
+                                                <textarea name="textarea-input" id="description" rows="9" placeholder="Input Job Description" class="form-control" required></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <label>Requirements</label>
+                                                <textarea name="textarea-input" id="requirement" rows="9" placeholder="Input Required Knowledge, Skills, and Abilities" class="form-control" required></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <label>Education & Experience</label>
+                                                <textarea name="textarea-input" id="experience" rows="9" placeholder="Input Education & Experience" class="form-control" required></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button onclick="addJobVacancy('')" id="submit-button" class="btn btn-info"><i class="fa fa-check-square"></i><span> Save</span></button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times"></i><span> Cancel</span></button>
+                                    </div>
+                                </div>
+                                <!-- <div class="tab-pane fade" id="nav-jobfile" role="tabpanel" aria-labelledby="nav-file-tab">
+                                    <div class="card-body card-block">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label class="control-label mb-1">Upload Image</label>
+                                                    <input type="file" name="fotojob" id="fotojob" class="form-control">
+                                                    <input type="hidden" id="jobid">
+                                                    <p class="small">Max upload file: 2MB</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label class="control-label mb-1">Upload File</label>
+                                                    <input type="file" name="filejob" id="filejob" class="form-control">
+                                                    <input type="hidden" id="idfilejob">
+                                                    <p class="small">File type: PDF, Max: 5MB</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button onclick="addJobFile('')" id="submit-button" class="btn btn-info"><i class="fa fa-check-square"></i><span> Add</span></button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times"></i><span> Cancel</span></button>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- END MODAL ADD EMP -->
+<input type="hidden" id="idedit">
+<input type="hidden" id="addid">
+<input type="hidden" id="client" value="1">
+<input type="hidden" id="">
+{% endblock %}

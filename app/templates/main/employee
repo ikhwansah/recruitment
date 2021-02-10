@@ -1,0 +1,790 @@
+{% extends "nav/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='js/employee.js') }}"></script>
+{% endblock %}
+
+{% block page_content %}
+<div class="main-content">
+    <div class="section__content section__content--p30">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="overview-wrap2">
+                                <h2 class="title-2">Applicants List</h2>
+                                <button data-toggle="modal" data-target="#emp" class="au-btn au-btn-icon au-btn--blue m-l-30"><i class="fa fa-plus"></i>&nbsp;<span id="add-employee">Add New</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive table--no-card m-b-40">
+                        <table id="employee" class="table table-striped cell-border table-earning display data-tables"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- END MAIN CONTENT-->
+<!-- MODAL ADD EMP-->
+<div class="modal fade" id="emp" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="largeModalLabel">Add Applicants</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="default-tab">
+                            <nav>
+                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                    <a class="nav-item nav-link active" id="nav-bio-tab" data-toggle="tab" href="#nav-bio" role="tab" aria-controls="nav-bio" aria-selected="true">Biodata</a>
+                                    <a class="nav-item nav-link disabled" data-toggle="tab" id="nav-correspondance-tab" href="#nav-correspondance" role="tab" aria-controls="nav-correspondance" aria-selected="false">Domisili</a>
+                                    <a class="nav-item nav-link disabled" data-toggle="tab" id="nav-edu-tab" href="#nav-edu" role="tab" aria-controls="nav-edu" aria-selected="false">Education</a>
+                                    <a class="nav-item nav-link disabled" id="nav-work-tab" data-toggle="tab" href="#nav-work" role="tab" aria-controls="nav-work" aria-selected="false">Work Experience</a>
+                                    <a class="nav-item nav-link disabled" id="nav-file-tab" data-toggle="tab" href="#nav-file" role="tab" aria-controls="nav-file" aria-selected="false">Attachment Files</a>
+                                </div>
+                            </nav>
+                            <div class="tab-content pl-3 pt-2" id="nav-tabContent">
+                                <div class="tab-pane fade show active" id="nav-bio" role="tabpanel" aria-labelledby="nav-bio-tab">
+                                    <div class="card-body card-block">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label class="control-label mb-1">Status</label>
+                                                    <select name="applicantstatus" id="applicantstatus" class="form-control"></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label class="control-label mb-1">Job Position</label>
+                                                    <select name="jobposition" id="jobposition" class="form-control"></select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label class="control-label mb-1">Name</label>
+                                                    <input id="name" name="name" type="text" class="form-control" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label class="control-label mb-1">NIK(KTP)</label>
+                                                    <input id="nik" name="nik" class="form-control" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label class="control-label mb-1">Phone Number</label>
+                                                    <input name="phonenumber" id="phonenumber" class="form-control" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label class="control-label mb-1">Email</label>
+                                                    <input type="email" name="email" id="email" class="form-control" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label class="control-label mb-1">Gender</label>
+                                                    <div class="col-12 col-md-9">
+                                                        <select name="gender" id="gender" class="form-control">
+                                                            <option value="0"></option>
+                                                            <option value="1">Male</option>
+                                                            <option value="2">Female</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label class="control-label mb-1">Religion</label>
+                                                    <div class="col-12 col-md-9">
+                                                        <select name="religion" id="religion" class="form-control">
+                                                            <option value="0"></option>
+                                                            <option value="1">Islam</option>
+                                                            <option value="2">Christian</option>
+                                                            <option value="3">Catholic</option>
+                                                            <option value="4">Hindu</option>
+                                                            <option value="5">Buddha</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <label>Alamat KTP</label>
+                                                <textarea name="textarea-input" id="address" rows="9" placeholder="Input Address" class="form-control" required></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label class="control-label mb-1">Province</label>
+                                                    <div class="col-12 col-md-9">
+                                                        <select name="province" id="province" class="form-control" onchange="fillcity(this)"></select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label class="control-label mb-1">City</label>
+                                                    <div class="col-12 col-md-9">
+                                                        <select name="city" id="city" class="form-control" onchange="fillkec(this)"></select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label class="control-label mb-1">Kecamatan</label>
+                                                    <div class="col-12 col-md-9">
+                                                        <select name="kec" id="kec" class="form-control" onchange="fillkel(this)"></select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label class="control-label mb-1">Kelurahan</label>
+                                                    <div class="col-12 col-md-9">
+                                                        <select name="kel" id="kel" class="form-control" onchange="fillpostalcode(this)"></select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label class="control-label mb-1">Postal Code</label>
+                                                    <div class="col-12 col-md-9">
+                                                        <select name="postalcode" id="postalcode" class="form-control" ></select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label class="control-label mb-1">RT/RW</label>
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <div class="col-6">
+                                                                <input id="rt" name="rt" type="text" class="form-control" placeholder="RT" >    
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <input id="rw" name="rw" type="text" class="form-control" placeholder="RW" >   
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label class="control-label mb-1">Birthdate</label>
+                                                    <input type="date" name="birthdate" id="birthdate" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label class="control-label mb-1">Birthplace</label>
+                                                    <input type="text" name="birthplace" id="birthplace" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <label>Marital Status</label>
+                                                <div class="col-12 col-md-9">
+                                                    <select name="marital" id="marital" class="form-control">
+                                                        <option value="0"></option>
+                                                        <option value="1">Single</option>
+                                                        <option value="2">Married</option>
+                                                        <option value="3">Widow/ Widower</option>
+                                                        <option value="4">Divorce</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label class="control-label mb-1">Password</label>
+                                                    <input type="text" id="password" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button onclick="addEmp('')" id="submit-button" class="btn btn-info"><i class="fa fa-angle-double-right"></i><span> Next</span></button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times"></i><span> Cancel</span></button>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="nav-correspondance" role="tabpanel" aria-labelledby="nav-correspondance-tab">
+                                    <div class="card-body card-block">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <label for="co-address">Correspondence Address</label>
+                                                <textarea name="textarea-input" id="corr-address" rows="9" placeholder="Input Correspondence Address" class="form-control"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <label for="statusadd" class="control-label mb-1">Status Address</label>
+                                                <div class="col-12 col-md-9">
+                                                    <select name="statusaddress" id="statusaddress" class="form-control"></select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label for="corr-province" class="control-label mb-1">Province</label>
+                                                    <div class="col-12 col-md-9">
+                                                        <select name="corr-province" id="corr-province" class="form-control" onchange="fillcity(this)"></select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label for="corr-city" class="control-label mb-1">City</label>
+                                                    <div class="col-12 col-md-9">
+                                                        <select name="corr-city" id="corr-city" class="form-control" onchange="fillkec(this)"></select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label for="corr-kec" class="control-label mb-1">Kecamatan</label>
+                                                    <div class="col-12 col-md-9">
+                                                        <select name="corr-kec" id="corr-kec" class="form-control" onchange="fillkel(this)"></select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label for="corr-kel" class="control-label mb-1">Kelurahan</label>
+                                                    <div class="col-12 col-md-9">
+                                                        <select name="corr-kel" id="corr-kel" class="form-control" onchange="fillpostalcode(this)"></select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label for="corr-postalcode" class="control-label mb-1">Postal Code</label>
+                                                    <div class="col-12 col-md-9">
+                                                        <select name="corr-postalcode" id="corr-postalcode" class="form-control"></select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label for="corr-rt" class="control-label mb-1">RT/RW</label>
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <div class="col-6">
+                                                                <input id="corr-rt" name="corr-rt" type="text" class="form-control" placeholder="RT" >    
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <input id="corr-rw" name="corr-rw" type="text" class="form-control" placeholder="RW" >   
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button onclick="addCorres('')" id="submit-button" class="btn btn-info"><i class="fa fa-angle-double-right"></i><span> Next</span></button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times"></i><span> Cancel</span></button>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="nav-edu" role="tabpanel" aria-labelledby="nav-edu-tab">
+                                    <div class="card-body card-block">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <label class="control-label mb-1">Last Education</label>
+                                                <div class="col-12 col-md-9">
+                                                    <select name="lastedu" id="lastedu" class="form-control"></select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="bordertop">
+                                            <p>Educational Background</p>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table id="edutable" class="table table-data3">
+                                                <thead>
+                                                    <tr>
+                                                        <th rowspan="2">Level</th>
+                                                        <th rowspan="2">Institution Name</th>
+                                                        <th rowspan="2">City</th>
+                                                        <th rowspan="2">Majors</th>
+                                                        <th colspan="2">Years</th>
+                                                        <th rowspan="2">Passed/ No</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Start</th>
+                                                        <th>End</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Primary School</td>
+                                                        <td><input id="nama_sd" type="text" class="input-sm form-control-sm form-control"/></td>
+                                                        <td><input id="kota_sd" type="text" class="input-sm form-control-sm form-control"/></td>
+                                                        <td><input id="jurusan_sd" type="text" class="input-sm form-control-sm form-control" disabled></td>
+                                                        <td><input id="masuk_sd" type="text" class="input-sm form-control-sm form-control"/></td>
+                                                        <td><input id="lulus_sd" type="text" class="input-sm form-control-sm form-control"/></td>
+                                                        <td>
+                                                            <select id="status_sd" class="input-sm form-control-sm form-control">
+                                                                <option value="1">Passed</option>
+                                                                <option value="2">No</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Junior High School</td>
+                                                        <td><input id="nama_smp" type="text" class="input-sm form-control-sm form-control"/></td>
+                                                        <td><input id="kota_smp" type="text" class="input-sm form-control-sm form-control"/></td>
+                                                        <td><input id="jurusan_smp" type="text" class="input-sm form-control-sm form-control" disabled></td>
+                                                        <td><input id="masuk_smp" type="text" class="input-sm form-control-sm form-control"/></td>
+                                                        <td><input id="lulus_smp" type="text" class="input-sm form-control-sm form-control"/></td>
+                                                        <td>
+                                                            <select id="status_smp" class="input-sm form-control-sm form-control">
+                                                                <option value="1">Passed</option>
+                                                                <option value="2">No</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>High School</td>
+                                                        <td><input id="nama_sma" type="text" class="input-sm form-control-sm form-control"/></td>
+                                                        <td><input id="kota_sma" type="text" class="input-sm form-control-sm form-control"/></td>
+                                                        <td><input id="jurusan_sma" type="text" class="input-sm form-control-sm form-control"></td>
+                                                        <td><input id="masuk_sma" type="text" class="input-sm form-control-sm form-control"/></td>
+                                                        <td><input id="lulus_sma" type="text" class="input-sm form-control-sm form-control"/></td>
+                                                        <td>
+                                                            <select id="status_sma" class="input-sm form-control-sm form-control">
+                                                                <option value="1">Passed</option>
+                                                                <option value="2">No</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Bachelor's Degree</td>
+                                                        <td><input id="nama_s1" type="text" class="input-sm form-control-sm form-control"/></td>
+                                                        <td><input id="kota_s1" type="text" class="input-sm form-control-sm form-control"/></td>
+                                                        <td><input id="jurusan_s1" type="text" class="input-sm form-control-sm form-control"></td>
+                                                        <td><input id="masuk_s1" type="text" class="input-sm form-control-sm form-control"/></td>
+                                                        <td><input id="lulus_s1" type="text" class="input-sm form-control-sm form-control"/></td>
+                                                        <td>
+                                                            <select id="status_s1" class="input-sm form-control-sm form-control">
+                                                                <option value="1">Passed</option>
+                                                                <option value="2">No</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Master's Degree</td>
+                                                        <td><input id="nama_s2" type="text" class="input-sm form-control-sm form-control"/></td>
+                                                        <td><input id="kota_s2" type="text" class="input-sm form-control-sm form-control"/></td>
+                                                        <td><input id="jurusan_s2" type="text" class="input-sm form-control-sm form-control"></td>
+                                                        <td><input id="masuk_s2" type="text" class="input-sm form-control-sm form-control"/></td>
+                                                        <td><input id="lulus_s2" type="text" class="input-sm form-control-sm form-control"/></td>
+                                                        <td>
+                                                            <select id="status_s2" class="input-sm form-control-sm form-control">
+                                                                <option value="1">Passed</option>
+                                                                <option value="2">No</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Doctoral Degree</td>
+                                                        <td><input id="nama_s3" type="text" class="input-sm form-control-sm form-control"/></td>
+                                                        <td><input id="kota_s3" type="text" class="input-sm form-control-sm form-control"/></td>
+                                                        <td><input id="jurusan_s3" type="text" class="input-sm form-control-sm form-control"></td>
+                                                        <td><input id="masuk_s3" type="text" class="input-sm form-control-sm form-control"/></td>
+                                                        <td><input id="lulus_s3" type="text" class="input-sm form-control-sm form-control"/></td>
+                                                        <td>
+                                                            <select id="status_s3" class="input-sm form-control-sm form-control">
+                                                                <option value="1">Passed</option>
+                                                                <option value="2">No</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="bordertop">
+                                            <p>Non-Formal Education</p>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table id="trainingtable" class="table table-data3">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Field</th>
+                                                        <th>Institusion</th>
+                                                        <th>City</th>
+                                                        <th>Course Length</th>
+                                                        <th>Year</th>
+                                                        <th>Financed by</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td><input id='bidang1' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='penyelenggara1' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='kota_kursus1' type='text' class='input-sm form-control-sm form-control'></td>
+                                                        <td><input id='lama_kursus1' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='tahun_masuk1' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='biaya1' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input id='bidang2' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='penyelenggara2' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='kota_kursus2' type='text' class='input-sm form-control-sm form-control'></td>
+                                                        <td><input id='lama_kursus2' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='tahun_masuk2' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='biaya2' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input id='bidang3' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='penyelenggara3' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='kota_kursus3' type='text' class='input-sm form-control-sm form-control'></td>
+                                                        <td><input id='lama_kursus3' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='tahun_masuk3' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='biaya3' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input id='bidang4' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='penyelenggara4' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='kota_kursus4' type='text' class='input-sm form-control-sm form-control'></td>
+                                                        <td><input id='lama_kursus4' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='tahun_masuk4' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='biaya4' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input id='bidang5' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='penyelenggara5' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='kota_kursus5' type='text' class='input-sm form-control-sm form-control'></td>
+                                                        <td><input id='lama_kursus5' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='tahun_masuk5' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='biaya5' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input id='bidang6' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='penyelenggara6' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='kota_kursus6' type='text' class='input-sm form-control-sm form-control'></td>
+                                                        <td><input id='lama_kursus6' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='tahun_masuk6' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='biaya6' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button onclick="addEdu('')" id="submit-button" class="btn btn-info"><i class="fa fa-angle-double-right"></i><span> Next</span></button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times"></i><span> Cancel</span></button>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="nav-work" role="tabpanel" aria-labelledby="nav-work-tab">
+                                    <div class="card-body card-block">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label class="control-label mb-1">NPWP</label>
+                                                    <input type="text" name="npwp" id="npwp" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label class="control-label mb-1">BPJS Ketenagakerjaan</label>
+                                                    <input type="text" name="bpjstk" id="bpjstk" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label class="control-label mb-1">BPJS Kesehatan</label>
+                                                    <input type="text" name="bpjs" id="bpjs" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="bordertop">
+                                            <p>Sertifikat Keahlian Kerja (SKA)</p>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table id="skatable" class="table table-data3">
+                                                <thead>
+                                                    <tr>
+                                                        <th rowspan="2">Professional Association Members</th>
+                                                        <th rowspan="2">TA Classification</th>
+                                                        <th rowspan="2">No. SKA</th>
+                                                        <th colspan="2">SKA Validity Period</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Start</th>
+                                                        <th>End</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td><input id='aap1' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='klasifikasi1' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='ska1' type='text' class='input-sm form-control-sm form-control'></td>
+                                                        <td><input id='skastart1' type='date' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='skaend1' type='date' class='input-sm form-control-sm form-control'/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input id='aap2' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='klasifikasi2' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='ska2' type='text' class='input-sm form-control-sm form-control'></td>
+                                                        <td><input id='skastart2' type='date' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='skaend2' type='date' class='input-sm form-control-sm form-control'/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input id='aap3' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='klasifikasi3' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='ska3' type='text' class='input-sm form-control-sm form-control'></td>
+                                                        <td><input id='skastart3' type='date' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='skaend3' type='date' class='input-sm form-control-sm form-control'/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input id='aap4' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='klasifikasi4' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='ska4' type='text' class='input-sm form-control-sm form-control'></td>
+                                                        <td><input id='skastart4' type='date' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='skaend4' type='date' class='input-sm form-control-sm form-control'/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input id='aap5' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='klasifikasi5' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='ska5' type='text' class='input-sm form-control-sm form-control'></td>
+                                                        <td><input id='skastart5' type='date' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='skaend5' type='date' class='input-sm form-control-sm form-control'/></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="bordertop">
+                                            <p>Work Experience</p>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table id="worktable" class="table table-data3">
+                                                <thead>
+                                                    <tr>
+                                                        <th rowspan="2">Company Name</th>
+                                                        <th rowspan="2">Address</th>
+                                                        <th rowspan="2">Position</th>
+                                                        <th colspan="2">Year</th>
+                                                        <th rowspan="2">Info</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Start</th>
+                                                        <th>From</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td><input id='company1' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='comaddress1' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='work_position1' type='text' class='input-sm form-control-sm form-control'></td>
+                                                        <td><input id='starttime1' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='endtime1' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='ket1' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input id='company2' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='comaddress2' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='work_position2' type='text' class='input-sm form-control-sm form-control'></td>
+                                                        <td><input id='starttime2' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='endtime2' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='ket2' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input id='company3' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='comaddress3' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='work_position3' type='text' class='input-sm form-control-sm form-control'></td>
+                                                        <td><input id='starttime3' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='endtime3' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='ket3' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input id='company4' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='comaddress4' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='work_position4' type='text' class='input-sm form-control-sm form-control'></td>
+                                                        <td><input id='starttime4' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='endtime4' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='ket4' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input id='company5' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='comaddress5' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='work_position5' type='text' class='input-sm form-control-sm form-control'></td>
+                                                        <td><input id='starttime5' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='endtime5' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='ket5' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input id='company6' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='comaddress6' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='work_position6' type='text' class='input-sm form-control-sm form-control'></td>
+                                                        <td><input id='starttime6' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='endtime6' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='ket6' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="bordertop">
+                                            <p>Project Experience (PT.ESTI YASAGAMA)</p>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table id="projecttable" class="table table-data3">
+                                                <thead>
+                                                    <tr>
+                                                        <th rowspan="2">Project</th>
+                                                        <th rowspan="2">Location</th>
+                                                        <th rowspan="2">Position</th>
+                                                        <th colspan="2">Year</th>
+                                                        <th rowspan="2">Info</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Start</th>
+                                                        <th>From</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td><input id='project1' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='project_address1' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='project_position1' type='text' class='input-sm form-control-sm form-control'></td>
+                                                        <td><input id='start_project1' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='end_project1' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='ket_project1' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input id='project2' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='project_address2' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='project_position2' type='text' class='input-sm form-control-sm form-control'></td>
+                                                        <td><input id='start_project2' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='end_project2' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='ket_project2' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input id='project3' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='project_address3' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='project_position3' type='text' class='input-sm form-control-sm form-control'></td>
+                                                        <td><input id='start_project3' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='end_project3' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='ket_project3' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input id='project4' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='project_address4' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='project_position4' type='text' class='input-sm form-control-sm form-control'></td>
+                                                        <td><input id='start_project4' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='end_project4' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='ket_project4' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input id='project5' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='project_address5' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='project_position5' type='text' class='input-sm form-control-sm form-control'></td>
+                                                        <td><input id='start_project5' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='end_project5' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='ket_project5' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input id='project6' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='project_address6' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='project_position6' type='text' class='input-sm form-control-sm form-control'></td>
+                                                        <td><input id='start_project6' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='end_project6' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                        <td><input id='ket_project6' type='text' class='input-sm form-control-sm form-control'/></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button onclick="addJob('')" id="submit-button" class="btn btn-info"><i class="fa fa-angle-double-right"></i><span> Next</span></button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times"></i><span> Cancel</span></button>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="nav-file" role="tabpanel" aria-labelledby="nav-file-tab">
+                                    <div class="card-body card-block">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label class="control-label mb-1">Profile Photo</label>
+                                                    <input type="file" name="profile" id="profile" class="form-control">
+                                                    <input type="hidden" id="picid">
+                                                    <p class="small">Max upload file: 2MB</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label class="control-label mb-1">KTP</label>
+                                                    <input type="file" name="fotoktp" id="fotoktp" class="form-control">
+                                                    <input type="hidden" id="ktpid">
+                                                    <p class="small">Max upload file: 2MB</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label class="control-label mb-1">NPWP</label>
+                                                    <input type="file" name="fotonpwp" id="fotonpwp" class="form-control">
+                                                    <input type="hidden" id="npwpid">
+                                                    <p class="small">Max upload file: 2MB</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label class="control-label mb-1">Curriculum Vitae</label>
+                                                    <input type="file" name="cv" id="cv" class="form-control">
+                                                    <input type="hidden" id="cvid">
+                                                    <p class="small">Jenis file: PDF, DOC, DOCX. Max: 5MB</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button onclick="addFile('')" id="submit-button" class="btn btn-info"><i class="fa fa-check-square"></i><span> Submit</span></button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times"></i><span> Cancel</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- END MODAL ADD EMP -->
+<input type="hidden" id="idedit">
+<input type="hidden" id="addid">
+<input type="hidden" id="date">
+<input type="hidden" id="client" value="1">
+<input type="hidden" id="">
+{% endblock %}
